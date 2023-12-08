@@ -28,9 +28,9 @@ def run_mcmc(
     return mcmc
 
 
-def calc_waic(logp: Float[Array, "M D"]) -> float:
+def calc_waic(logp: Float[np.ndarray, "M D"]) -> float:
     M = logp.shape[0]  # number of samples
-    T = -logsumexp(logp, axis=0, b=1.0 / M).mean()
+    T = -logsumexp(logp, axis=0, b=1.0 / M).mean()  # type: ignore
     V = logp.var(axis=0).mean()
     return T + V
 
