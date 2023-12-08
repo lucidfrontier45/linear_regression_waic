@@ -1,17 +1,15 @@
 [project]
-name = "python-pdm-template"
-description = "A Project Template of Python with PDM"
+name = "linear-regression-waic"
+description = "Linear Regression and WAIC with NumPyro"
 authors = [{ name = "杜 世橋 Du Shiqiao", email = "lucidfrontier.45@gmail.com" }]
 license = { text = "MIT" }
 dynamic = ["version"]
-requires-python = ">=3.11"
-dependencies = ["fastapi>=0.100.1", "uvicorn>=0.23.1"]
-
-[project.optional-dependencies]
-server = ["uvicorn[standard]>=0.23.1"]
-
-[project.scripts]
-app = "app.cli:main"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "numpyro>=0.13.2",
+    "jaxtyping>=0.2.24",
+    "arviz>=0.16.1",
+]
 
 [build-system]
 requires = ["pdm-backend"]
@@ -21,13 +19,6 @@ build-backend = "pdm.backend"
 source = "file"
 path = "src/app/version.py"
 
-[tool.pdm.dev-dependencies]
-dev = [
-    "black>=23.9.1",
-    "ruff>=0.0.291",
-    "pyright>=1.1.329",
-    "pytest-cov>=4.1.0",
-]
 
 [tool.pdm.scripts]
 black = "black ."
@@ -39,6 +30,8 @@ format = { composite = ["ruff_fix", "black"] }
 lint = { composite = ["ruff_lint", "pyright"] }
 check = { composite = ["format", "lint", "test"] }
 
+[tool.pdm.dev-dependencies]
+dev = ["black>=23.11.0", "ruff>=0.1.7", "pyright>=1.1.339", "ipykernel>=6.27.1"]
 [tool.pytest.ini_options]
 filterwarnings = ["ignore::FutureWarning"]
 
@@ -50,6 +43,7 @@ extend-exclude = "deps"
 [tool.ruff]
 select = ["E", "F", "W"]
 target-version = "py311"
+ignore = ["F722"]
 # add directory names to exclude from analysis
 exclude = ["deps"]
 
