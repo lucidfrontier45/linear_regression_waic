@@ -131,3 +131,5 @@ dmypy.json
 .vscode
 .pdm.toml
 .pdm-python
+src/app/stan/model
+src/app/stan/model.hpp

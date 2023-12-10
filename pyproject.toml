@@ -1,6 +1,6 @@
 [project]
 name = "linear-regression-waic"
-description = "Linear Regression and WAIC with NumPyro"
+description = "Bayesian Linear Regression and WAIC"
 authors = [{ name = "杜 世橋 Du Shiqiao", email = "lucidfrontier.45@gmail.com" }]
 license = { text = "MIT" }
 dynamic = ["version"]
@@ -9,6 +9,7 @@ dependencies = [
     "numpyro>=0.13.2",
     "jaxtyping>=0.2.24",
     "arviz>=0.16.1",
+    "cmdstanpy>=1.2.0",
 ]
 
 [build-system]

@@ -1,9 +1,9 @@
 import jax
-import numpy as np
-from jaxtyping import Array, Float, Float32
+from jaxtyping import Array, Float32
 from numpyro.infer import MCMC, NUTS
 from numpyro.infer.util import log_likelihood
-from scipy.special import logsumexp
+
+from ..waic import calculate_waic
 
 
 def run_mcmc(
@@ -28,13 +28,6 @@ def run_mcmc(
     return mcmc
 
 
-def calc_waic(logp: Float[np.ndarray, "M D"]) -> float:
-    M = logp.shape[0]  # number of samples
-    T = -logsumexp(logp, axis=0, b=1.0 / M).mean()  # type: ignore
-    V = logp.var(axis=0).mean()
-    return T + V
-
-
 def evaluate_model(
     model,
     X: Float32[Array, "N D"],
@@ -42,4 +35,4 @@ def evaluate_model(
     posterior_samples: dict[str, Float32[Array, "M _*"]],
 ):
     logp = log_likelihood(model, posterior_samples, X, y)["y"]
-    return calc_waic(jax.device_get(logp))
+    return calculate_waic(jax.device_get(logp))
